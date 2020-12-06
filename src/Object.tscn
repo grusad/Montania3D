@@ -6,6 +6,8 @@
 albedo_color = Color( 0.0470588, 0.988235, 0.988235, 1 )
 
 [node name="Object" type="Area"]
+monitoring = false
+monitorable = false
 script = ExtResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]

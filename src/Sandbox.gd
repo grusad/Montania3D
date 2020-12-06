@@ -2,9 +2,12 @@ extends Spatial
 
 onready var camera = $Pivot/Camera
 onready var object_list = $Options/UI/VBoxContainer/ObjectList
+onready var ground = $Ground
+onready var options = $Options
 
 func _ready():
-	$Pivot/Camera.options = $Options
+	camera.options = options
+	
 
 
 

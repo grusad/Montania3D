@@ -13,7 +13,7 @@ uv1_triplanar = true
 
 [sub_resource type="PlaneMesh" id=2]
 material = SubResource( 1 )
-size = Vector2( 1000, 100 )
+size = Vector2( 100, 100 )
 
 [sub_resource type="ConcavePolygonShape" id=3]
 data = PoolVector3Array( 500, 0, 50, -500, 0, 50, 500, 0, -50, -500, 0, 50, -500, 0, -50, 500, 0, -50 )
