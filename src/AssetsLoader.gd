@@ -1,6 +1,6 @@
 extends Node
 
-# loads 
+
 func load_asset_descriptions():
 	var resource_paths = []
 	var dir = Directory.new()

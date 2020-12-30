@@ -7,7 +7,6 @@ onready var options = $Options
 
 func _ready():
 	camera.options = options
-	
 
 
 
@@ -16,3 +15,10 @@ func _on_CreateObjectButton_pressed():
 	var object = AssetsLoader.build_asset(object_list.asset_descriptions[object_list.selected].path)
 	add_child(object)
 	camera.register_draggable_object(object)
+
+
+func _process(delta):
+	if Input.is_action_just_pressed("ui_down"):
+		var instance = load("res://src/ClickFence.tscn").instance()
+		add_child(instance)
+		camera.register_draggable_object(instance)

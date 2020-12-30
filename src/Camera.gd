@@ -38,11 +38,17 @@ func _unhandled_input(event):
 			if drag_node != null:
 				drag_node.outline_mesh.visible = false
 				on_drag_end(drag_node)
-			
+		
 		elif event.button_index == BUTTON_WHEEL_DOWN:
-			translate(Vector3(0, 0, 0.25))
+			if drag_node:
+				drag_node.rotate_y(deg2rad(45))
+			else:
+				translate(Vector3(0, 0, 0.25))
 		elif event.button_index == BUTTON_WHEEL_UP:
-			translate(Vector3(0, 0, -0.25))
+			if drag_node:
+				drag_node.rotate_y(deg2rad(-45))
+			else:
+				translate(Vector3(0, 0, -0.25))
 	
 		
 		
