@@ -6,6 +6,7 @@ signal drag_start
 signal drag_end
 
 
+
 func _init():
 	add_to_group("draggable")
 

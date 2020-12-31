@@ -2,6 +2,8 @@ extends Node
 
 
 func load_asset_descriptions():
+	
+	#Objects loaded dynamically
 	var resource_paths = []
 	var dir = Directory.new()
 	var file_extension = ".obj"
@@ -28,7 +30,7 @@ func load_asset_descriptions():
 			print("Found file " + file_name)
 			
 		file_name = dir.get_next()
-		
+	
 	return resource_paths
 		
 func build_asset(file_path):

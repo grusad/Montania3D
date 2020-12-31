@@ -11,6 +11,8 @@ var drag_node = null
 var drag_node_offset = Vector3()
 var options = null
 
+signal place
+
 func _physics_process(delta):
 	if drag_node:
 		var excludes = get_tree().get_nodes_in_group("draggable")
@@ -37,7 +39,10 @@ func _unhandled_input(event):
 		elif event.button_index == BUTTON_LEFT and not event.is_pressed():
 			if drag_node != null:
 				drag_node.outline_mesh.visible = false
+				var current_node = drag_node
 				on_drag_end(drag_node)
+				emit_signal("place", current_node)
+				
 		
 		elif event.button_index == BUTTON_WHEEL_DOWN:
 			if drag_node:
@@ -82,13 +87,15 @@ func on_drag_start(node):
 	drag_node = node
 #	var initial_drag_position = get_ray_result(get_tree().get_nodes_in_group("draggable"))['position']
 #	drag_node_offset = initial_drag_position - node.translation
-	set_physics_process(true)
 	
 	
 func on_drag_end(node):
 	drag_node = null
-	set_physics_process(false)
+	
 	
 func register_draggable_object(node):
 	node.connect("drag_start", self, "on_drag_start")
 	node.connect("drag_end", self, "on_drag_end")
+	
+func object_follow_mouse(node):
+	drag_node = node
