@@ -19,6 +19,7 @@ func _on_CreateObjectButton_pressed():
 	camera.register_draggable_object(object)
 	camera.object_follow_mouse(object)
 	
+	
 
 
 func on_object_placed(node):
@@ -26,35 +27,36 @@ func on_object_placed(node):
 	
 	var pos = node.global_transform.origin
 	
+	if grid_map.has(Vector3(pos.x, 0, pos.z)):
+		print("Cant place here.")
+		return
+	
 	grid_map.push_back(Vector3(pos.x, 0, pos.z))
-	var forward = Vector3(pos.x, 0, pos.z -1)
-	var backward = Vector3(pos.x, 0, pos.z +1)
-	var left = Vector3(pos.x -1, 0, pos.z)
-	var right = Vector3(pos.x + 1, 0, pos.z)
+	var forward = Vector3(pos.x, 0, pos.z - options.snap_size)
+	var backward = Vector3(pos.x, 0, pos.z + options.snap_size)
+	var left = Vector3(pos.x - options.snap_size, 0, pos.z)
+	var right = Vector3(pos.x + options.snap_size, 0, pos.z)
 	
 	if grid_map.has(forward):
 		var glass = generate_glass(node)
 		glass.rotation_degrees = Vector3(0, 90, 0)
-		print("found forward")
 		
 	if grid_map.has(backward):
 		var glass = generate_glass(node)
 		glass.rotation_degrees = Vector3(0, -90, 0)
-		print("found backward")
 		
 	if grid_map.has(left):
 		var glass = generate_glass(node)
 		glass.rotation_degrees = Vector3(0, 180, 0)
-		print("found left")
 		
 	if grid_map.has(right):
 		var glass = generate_glass(node)
-		print("found right")
 		
 func generate_glass(base_node):
 	var instance = load("res://src/objects/Glass.tscn").instance()
 	add_child(instance)
 	instance.global_transform.origin = base_node.global_transform.origin
+	instance.scale = Vector3(options.snap_size, 1, 1)
 	return instance
 
 func _on_PropsButton_pressed():

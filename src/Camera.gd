@@ -99,3 +99,4 @@ func register_draggable_object(node):
 	
 func object_follow_mouse(node):
 	drag_node = node
+
