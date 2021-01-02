@@ -2,6 +2,7 @@ extends Camera
 
 onready var pivot : Spatial = get_parent()
 onready var tween : Tween = $Tween 
+onready var grid_select = get_parent().get_parent().get_node("Ground/GridSelect")
 
 const MOUSE_SENSITIVITY = 0.25
 const RAY_LENGTH = 1000
@@ -10,21 +11,32 @@ var middle_button_pressed = false
 var drag_node = null
 var drag_node_offset = Vector3()
 var options = null
+var is_painting = false
 
 signal place
 
 func _physics_process(delta):
-	if drag_node:
 		var excludes = get_tree().get_nodes_in_group("draggable")
 		var result = get_ray_result(excludes)
 		if result:
 			if options.snap_mode:
 				var world_position = result['position']
+				if world_position.x < 0:
+					world_position.x -= 1
+				if world_position.z < 0:
+					world_position.z -= 1
+					
 				var grid_x = int(world_position.x / options.snap_size) * options.snap_size
 				var grid_z = int(world_position.z / options.snap_size) * options.snap_size
-				drag_node.set_translation(Vector3(grid_x, world_position.y, grid_z))
+				
+				if drag_node:
+					drag_node.set_translation(Vector3(grid_x, world_position.y, grid_z))
+				
+				grid_select.set_translation(Vector3(grid_x, grid_select.translation.y, grid_z))
 			else:
-				drag_node.set_translation(result['position'])
+				if drag_node:
+					drag_node.set_translation(result['position'])
+	
 
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
@@ -34,7 +46,12 @@ func _unhandled_input(event):
 			else:
 				middle_button_pressed = false
 		elif event.button_index == BUTTON_RIGHT and event.is_pressed():
-			focus()
+			if is_painting:
+				if drag_node:
+					drag_node.queue_free()
+					is_painting = false
+			else:
+				focus()
 		# If mouse event not handled inside Object input handler (e.g snapping mode)
 		elif event.button_index == BUTTON_LEFT and not event.is_pressed():
 			if drag_node != null:
@@ -99,4 +116,5 @@ func register_draggable_object(node):
 	
 func object_follow_mouse(node):
 	drag_node = node
+	is_painting = true
 
