@@ -5,31 +5,37 @@ onready var object_list = $Options/UI/VBoxContainer/ObjectList
 onready var ground = $Ground
 onready var options = $Options
 onready var props = $Props
+onready var snap_button = $Options/UI/VBoxContainer/SnapButton
+onready var grid_select = $Ground/GridSelect
 
 var grid_map = []
 
 func _ready():
 	camera.options = options
 	camera.connect("place", self, "on_object_placed")
-
+	snap_button.connect("toggled", self, "on_snap_button_toggled")
+	
 func _on_CreateObjectButton_pressed():
 
 	var object = AssetsLoader.build_asset(object_list.asset_descriptions[object_list.selected].path)
 	add_child(object)
 	camera.register_draggable_object(object)
 	camera.object_follow_mouse(object)
-	
-	
 
 
 func on_object_placed(node):
+
+	
 	_on_CreateObjectButton_pressed()
 	
 	var pos = node.global_transform.origin
 	
+	
 	if grid_map.has(Vector3(pos.x, 0, pos.z)):
 		print("Cant place here.")
 		return
+		
+		
 	
 	grid_map.push_back(Vector3(pos.x, 0, pos.z))
 	var forward = Vector3(pos.x, 0, pos.z - options.snap_size)
@@ -62,3 +68,9 @@ func generate_glass(base_node):
 func _on_PropsButton_pressed():
 	for prop in props.get_children():
 		prop.visible = not prop.visible
+		
+func on_snap_button_toggled(toggle):
+	grid_select = toggle
+
+
+
