@@ -20,23 +20,23 @@ size = Vector2( 100, 100 )
 [sub_resource type="ConcavePolygonShape" id=3]
 data = PoolVector3Array( 500, 0, 50, -500, 0, 50, 500, 0, -50, -500, 0, 50, -500, 0, -50, 500, 0, -50 )
 
-[sub_resource type="SpatialMaterial" id=14]
+[sub_resource type="SpatialMaterial" id=4]
 flags_transparent = true
 flags_unshaded = true
 albedo_color = Color( 0.709804, 1, 0.690196, 1 )
 albedo_texture = ExtResource( 8 )
 
-[sub_resource type="PlaneMesh" id=13]
-material = SubResource( 14 )
+[sub_resource type="PlaneMesh" id=5]
+material = SubResource( 4 )
 size = Vector2( 1, 1 )
 
-[sub_resource type="ProceduralSky" id=4]
+[sub_resource type="ProceduralSky" id=6]
 ground_bottom_color = Color( 0.839216, 0.917647, 0.980392, 1 )
 ground_horizon_color = Color( 0.839216, 0.917647, 0.980392, 1 )
 
-[sub_resource type="Environment" id=5]
+[sub_resource type="Environment" id=7]
 background_mode = 2
-background_sky = SubResource( 4 )
+background_sky = SubResource( 6 )
 ambient_light_color = Color( 0.839216, 0.917647, 0.980392, 1 )
 ambient_light_energy = 0.34
 fog_enabled = true
@@ -44,22 +44,22 @@ fog_color = Color( 0.839216, 0.917647, 0.980392, 1 )
 fog_depth_end = 30.0
 glow_blend_mode = 1
 
-[sub_resource type="SpatialMaterial" id=6]
+[sub_resource type="SpatialMaterial" id=8]
 flags_transparent = true
 albedo_color = Color( 0.992157, 0.984314, 0.984314, 0.278431 )
 
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="SpatialMaterial" id=9]
 albedo_color = Color( 0.0941176, 0.0941176, 0.0941176, 1 )
 
-[sub_resource type="SpatialMaterial" id=8]
-
-[sub_resource type="SpatialMaterial" id=9]
-albedo_color = Color( 0.352941, 0.419608, 0.529412, 1 )
-
 [sub_resource type="SpatialMaterial" id=10]
-albedo_color = Color( 0.811765, 0.811765, 0.811765, 1 )
 
 [sub_resource type="SpatialMaterial" id=11]
+albedo_color = Color( 0.352941, 0.419608, 0.529412, 1 )
+
+[sub_resource type="SpatialMaterial" id=12]
+albedo_color = Color( 0.811765, 0.811765, 0.811765, 1 )
+
+[sub_resource type="SpatialMaterial" id=13]
 albedo_color = Color( 0.184314, 0.184314, 0.184314, 1 )
 
 [node name="Sandbox" type="Spatial"]
@@ -78,7 +78,7 @@ shape = SubResource( 3 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Ground/GridSelect"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.00760514, 0.5 )
-mesh = SubResource( 13 )
+mesh = SubResource( 5 )
 material/0 = null
 
 [node name="Pivot" type="Spatial" parent="."]
@@ -95,7 +95,7 @@ transform = Transform( 0.964667, -0.231664, 0.125499, -0.00935746, 0.445901, 0.8
 light_energy = 0.35
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 5 )
+environment = SubResource( 7 )
 
 [node name="Options" type="Control" parent="."]
 anchor_right = 1.0
@@ -248,23 +248,23 @@ material/13 = null
 material/14 = null
 material/15 = null
 material/16 = null
-material/17 = SubResource( 6 )
-material/18 = SubResource( 7 )
-material/19 = SubResource( 6 )
+material/17 = SubResource( 8 )
+material/18 = SubResource( 9 )
+material/19 = SubResource( 8 )
 material/20 = null
 material/21 = null
 material/22 = null
 material/23 = null
 material/24 = null
 material/25 = null
-material/26 = SubResource( 8 )
+material/26 = SubResource( 10 )
 material/27 = null
-material/28 = SubResource( 9 )
-material/29 = SubResource( 10 )
+material/28 = SubResource( 11 )
+material/29 = SubResource( 12 )
 material/30 = null
-material/31 = SubResource( 11 )
-material/32 = SubResource( 6 )
-material/33 = SubResource( 7 )
+material/31 = SubResource( 13 )
+material/32 = SubResource( 8 )
+material/33 = SubResource( 9 )
 material/34 = null
 material/35 = null
 material/36 = null
